@@ -1,9 +1,10 @@
 <script setup lang="ts"></script>
 
 <template>
-  <main>
-    <router-view />
-  </main>
+  <div>
+    <h1>Projects</h1>
+    <RouterLink to="/">Home</RouterLink>
+  </div>
 </template>
 
 <style scoped></style>
