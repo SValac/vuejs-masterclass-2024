@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { supabase } from '@/lib/supabaseClient'
-const projects = ref()
+import type { Tables } from 'database/types'
+
+const projects = ref<Tables<'projects'>[] | null>(null)
 /* 
   IIFE = Immediately Invoke function Expression
   A JavaScript function that runs as soon as it is defined. Also known as an IIFE.
@@ -21,7 +23,11 @@ const projects = ref()
   <div>
     <h1>Projects</h1>
     <RouterLink to="/">Home</RouterLink>
-    {{ projects }}
+    <ul>
+      <li v-for="project in projects" :key="project.id">
+        {{ project.name }}
+      </li>
+    </ul>
   </div>
 </template>
 
