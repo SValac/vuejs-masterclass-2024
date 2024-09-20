@@ -1,4 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { supabase } from '@/lib/supabaseClient'
+const getProjects = async () => {
+  const { data, error } = await supabase.from('countries').select()
+  if (error) {
+    console.log(error)
+  }
+  console.log('projects ', data)
+}
+
+await getProjects()
+</script>
 
 <template>
   <div>
