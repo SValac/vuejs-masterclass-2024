@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { supabase } from '@/lib/supabaseClient'
-
+const projects = ref()
 /* 
   IIFE = Immediately Invoke function Expression
   A JavaScript function that runs as soon as it is defined. Also known as an IIFE.
@@ -10,7 +11,9 @@ import { supabase } from '@/lib/supabaseClient'
   if (error) {
     console.log(error)
   }
-  console.log('projects ', data)
+
+  projects.value = data
+  return data
 })()
 </script>
 
@@ -18,6 +21,7 @@ import { supabase } from '@/lib/supabaseClient'
   <div>
     <h1>Projects</h1>
     <RouterLink to="/">Home</RouterLink>
+    {{ projects }}
   </div>
 </template>
 
