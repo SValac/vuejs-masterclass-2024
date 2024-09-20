@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { supabase } from '@/lib/supabaseClient'
-const getProjects = async () => {
-  const { data, error } = await supabase.from('countries').select()
+
+/* 
+  IIFE = Immediately Invoke function Expression
+  A JavaScript function that runs as soon as it is defined. Also known as an IIFE.
+*/
+;(async () => {
+  const { data, error } = await supabase.from('projects').select()
   if (error) {
     console.log(error)
   }
   console.log('projects ', data)
-}
-
-await getProjects()
+})()
 </script>
 
 <template>
