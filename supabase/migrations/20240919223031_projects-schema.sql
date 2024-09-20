@@ -1,7 +1,7 @@
 drop table if exists projects;
 drop type if exists current_status;
 
-create type current_status as enum ('todo', 'in_progress', 'done');
+create type current_status as enum ('todo', 'in-progress', 'done');
 
 create table projects(
   id bigint primary key generated always as identity not null,
