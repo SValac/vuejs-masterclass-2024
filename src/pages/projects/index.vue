@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 import { projectsQuery } from '@/utils/queries'
-import type { ColumnDef } from '@tanstack/vue-table'
+import { columns } from '@/utils/tableColumns/projectsColumns'
 import type { ProjectsQuery } from '@/utils/queries'
 
 usePageStore().pageData.title = 'Projects'
@@ -17,41 +16,6 @@ const getProjects = async () => {
 }
 
 await getProjects()
-
-const columns: ColumnDef<ProjectsQuery[0]>[] = [
-  {
-    accessorKey: 'name',
-    header: () => h('div', { class: 'text-left' }, 'Project Name'),
-    cell: ({ row }) => {
-      return h(
-        RouterLink,
-        {
-          to: `/projects/${row.original.slug}`,
-          class: 'text-left font-medium hover:bg-muted block w-full'
-        },
-        () => row.getValue('name')
-      )
-    }
-  },
-  {
-    accessorKey: 'status',
-    header: () => h('div', { class: 'text-left' }, 'Status'),
-    cell: ({ row }) => {
-      return h('div', { class: 'text-left font-medium' }, row.getValue('status'))
-    }
-  },
-  {
-    accessorKey: 'collaborators',
-    header: () => h('div', { class: 'text-left' }, 'Collaborators'),
-    cell: ({ row }) => {
-      return h(
-        'div',
-        { class: 'text-left font-medium' },
-        JSON.stringify(row.getValue('collaborators'))
-      )
-    }
-  }
-]
 </script>
 
 <template>
