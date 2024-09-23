@@ -5,19 +5,16 @@ import type { ColumnDef } from '@tanstack/vue-table'
 import { RouterLink } from 'vue-router'
 
 const projects = ref<Tables<'projects'>[] | null>(null)
-/* 
-  IIFE = Immediately Invoke function Expression
-  A JavaScript function that runs as soon as it is defined. Also known as an IIFE.
-*/
-;(async () => {
+const getProjects = async () => {
   const { data, error } = await supabase.from('projects').select()
   if (error) {
     console.log(error)
   }
-
   projects.value = data
   return data
-})()
+}
+
+await getProjects()
 
 const columns: ColumnDef<Tables<'projects'>>[] = [
   {
