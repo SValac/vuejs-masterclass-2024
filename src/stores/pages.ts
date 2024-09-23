@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const usePageStore = defineStore('page-store', () => {
   const pageData = ref({
@@ -9,3 +9,6 @@ export const usePageStore = defineStore('page-store', () => {
     pageData
   }
 })
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(usePageStore, import.meta.hot))
+}
