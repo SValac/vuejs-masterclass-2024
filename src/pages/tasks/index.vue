@@ -3,12 +3,12 @@ import { supabase } from '@/lib/supabaseClient'
 import type { Tables } from 'database/types'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { RouterLink } from 'vue-router'
+import { usePageStore } from '@/stores/pages'
+
+usePageStore().pageData.title = 'My Tasks'
 
 const tasks = ref<Tables<'tasks'>[] | null>(null)
-/* 
-  IIFE = Immediately Invoke function Expression
-  A JavaScript function that runs as soon as it is defined. Also known as an IIFE.
-*/
+
 const getTasks = async () => {
   const { data, error } = await supabase.from('tasks').select()
   if (error) {
