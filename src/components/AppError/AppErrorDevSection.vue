@@ -3,7 +3,7 @@ defineProps<{
   message: string
   customCode: number
   statusCode: number
-  code: number
+  code: number | string
   hint: string | null
   details: string
 }>()

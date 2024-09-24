@@ -26,14 +26,25 @@ if (error.value && 'code' in error.value) {
   statusCode.value = error.value.statusCode ?? 0
 }
 
+const ErrorTemplate = import.meta.env.DEV
+  ? defineAsyncComponent(() => import('./AppErrorDevSection.vue'))
+  : defineAsyncComponent(() => import('./AppErrorProdSection.vue'))
+
 router.afterEach(() => {
-  errorStore.activeError = null
+  errorStore.clearError()
 })
 </script>
 <template>
   <section class="error">
-    <AppErrorProdSection :is-custom-error="errorStore.isCustomError" :message :custom-code />
-    <AppErrorDevSection :message :code :custom-code :status-code :details :hint />
+    <ErrorTemplate
+      :message
+      :code
+      :custom-code
+      :status-code
+      :details
+      :hint
+      :is-custom-error="errorStore.isCustomError"
+    />
   </section>
 </template>
 
