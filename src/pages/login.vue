@@ -1,4 +1,21 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { login } from '@/utils/supaAuth'
+
+const router = useRouter()
+const formData = ref({
+  email: '',
+  password: ''
+})
+
+/**
+ * Submits the login form and redirects to the root route if the login is successful
+ */
+
+const singIn = async () => {
+  const isLoggedIn = await login(formData.value)
+  if (isLoggedIn) router.push('/')
+}
+</script>
 
 <template>
   <div class="mx-auto flex w-full justify-center items-center p-10 text-center -mt-20 min-h-[90vh]">
@@ -13,17 +30,28 @@
           <Separator label="Or" />
         </div>
 
-        <form class="grid gap-4">
+        <form class="grid gap-4" @submit.prevent="singIn">
           <div class="grid gap-2">
             <Label id="email" class="text-left">Email</Label>
-            <Input type="email" placeholder="johndoe19@example.com" required />
+            <Input
+              v-model="formData.email"
+              type="email"
+              placeholder="johndoe19@example.com"
+              required
+            />
           </div>
           <div class="grid gap-2">
             <div class="flex items-center">
               <Label id="password">Password</Label>
               <a href="#" class="inline-block ml-auto text-xs underline"> Forgot your password? </a>
             </div>
-            <Input id="password" type="password" autocomplete required />
+            <Input
+              v-model="formData.password"
+              id="password"
+              type="password"
+              autocomplete
+              required
+            />
           </div>
           <Button type="submit" class="w-full"> Login </Button>
         </form>

@@ -1,36 +1,23 @@
 <script setup lang="ts">
-import { supabase } from '@/lib/supabaseClient'
+import { register } from '@/utils/supaAuth'
 
 const router = useRouter()
 const formData = ref({
   username: '',
-  fisrtName: '',
+  firstName: '',
   lastName: '',
   email: '',
   password: '',
   confirmPassword: ''
 })
 
-const singup = async () => {
-  const { data, error } = await supabase.auth.signUp({
-    email: formData.value.email,
-    password: formData.value.password
-  })
-
-  if (error) return console.log(error)
-
-  if (data.user) {
-    const { error } = await supabase.from('profiles').insert({
-      id: data.user?.id,
-      username: formData.value.username,
-      full_name: formData.value.fisrtName.concat(' ', formData.value.lastName)
-    })
-
-    if (error) return console.log('Profile Err: ', error)
-  }
-
-  console.log(data)
-  router.push('/')
+/**
+ * Registers the user using the provided form data, and
+ * redirects to the homepage if the registration is successful.
+ */
+const signup = async () => {
+  const isRegistered = await register(formData.value)
+  if (isRegistered) router.push('/')
 }
 </script>
 
@@ -48,7 +35,7 @@ const singup = async () => {
           <Button variant="outline" class="w-full"> Register with Google </Button>
           <Separator label="Or" />
         </div>
-        <form class="grid gap-4" @submit.prevent="singup">
+        <form class="grid gap-4" @submit.prevent="signup">
           <div class="grid gap-2">
             <Label id="username" class="text-left">Username</Label>
             <Input
@@ -63,7 +50,7 @@ const singup = async () => {
             <div class="grid gap-2">
               <Label id="first_name" class="text-left">First Name</Label>
               <Input
-                v-model="formData.fisrtName"
+                v-model="formData.firstName"
                 id="first_name"
                 type="text"
                 placeholder="John"
