@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { tasksWithProjectsQuery } from '@/utils/queries'
+import { tasksWithProjectsQuery } from '@/utils/supaQueries'
 import { columns } from '@/utils/tableColumns/tasksColumns'
-import type { TasksWithProjects } from '@/utils/queries'
+import type { TasksWithProjects } from '@/utils/supaQueries'
 
 usePageStore().pageData.title = 'My Tasks'
 

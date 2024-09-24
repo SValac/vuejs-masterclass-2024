@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { taskQuery } from '@/utils/queries'
-import type { Task } from '@/utils/queries'
+import { taskQuery } from '@/utils/supaQueries'
+import type { Task } from '@/utils/supaQueries'
 
 const route = useRoute('/tasks/[id]')
 
