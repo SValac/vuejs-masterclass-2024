@@ -2,6 +2,7 @@
 import { tasksWithProjectsQuery } from '@/utils/queries'
 import { columns } from '@/utils/tableColumns/tasksColumns'
 import type { TasksWithProjects } from '@/utils/queries'
+import { error } from 'console'
 
 usePageStore().pageData.title = 'My Tasks'
 
