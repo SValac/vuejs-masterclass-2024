@@ -29,7 +29,7 @@ export const register = async (formData: RegisterForm): Promise<boolean | void> 
     if (error) return console.log('Profile Err: ', error)
   }
 
-  authStore.setAuth(data.session)
+  await authStore.setAuth(data.session)
   return true
 }
 
@@ -47,6 +47,6 @@ export const login = async (formData: LoginForm): Promise<boolean | void> => {
   })
   if (error) return console.log(error)
 
-  authStore.setAuth(data.session)
+  await authStore.setAuth(data.session)
   return true
 }

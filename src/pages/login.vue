@@ -13,6 +13,8 @@ const formData = ref({
 
 const singIn = async () => {
   const isLoggedIn = await login(formData.value)
+  console.log(useAuthStore().user)
+  console.log(useAuthStore().profile)
   if (isLoggedIn) router.push('/')
 }
 </script>
