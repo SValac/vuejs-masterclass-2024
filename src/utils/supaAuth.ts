@@ -1,6 +1,8 @@
 import { supabase } from '@/lib/supabaseClient'
 import type { LoginForm, RegisterForm } from '@/types/AuthForm'
 
+const authStore = useAuthStore()
+
 /**
  * Registers a user with Supabase auth and creates a matching profile
  * in the `profiles` table.
@@ -26,6 +28,8 @@ export const register = async (formData: RegisterForm): Promise<boolean | void> 
 
     if (error) return console.log('Profile Err: ', error)
   }
+
+  authStore.setAuth(data.session)
   return true
 }
 
@@ -37,11 +41,12 @@ export const register = async (formData: RegisterForm): Promise<boolean | void> 
  * login was successful.
  */
 export const login = async (formData: LoginForm): Promise<boolean | void> => {
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email: formData.email,
     password: formData.password
   })
   if (error) return console.log(error)
 
+  authStore.setAuth(data.session)
   return true
 }
